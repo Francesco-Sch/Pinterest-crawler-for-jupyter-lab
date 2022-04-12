@@ -1,7 +1,7 @@
 # Pinterest crawler for jupyter notebooks
 Crawl images from pinterest from within a jupyter notebook in jupyter lab.
 
-Based on the crawler from [mirusu400](https://github.com/mirusu400)
+Based on the crawler from [mirusu400](https://github.com/mirusu400)  
 [Original GitHub Repository](https://github.com/mirusu400/Pinterest-infinite-crawler/)
 
 # Requirements
