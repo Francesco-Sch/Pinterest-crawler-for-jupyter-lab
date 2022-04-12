@@ -1,4 +1,5 @@
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 from exceptions import *
 from imagehelper import *
@@ -18,7 +19,7 @@ class Pinterest():
         options.add_argument('window-size=1920x1080')
         options.add_argument("disable-gpu")
         options.add_argument("--log-level=3")
-        self.driver = webdriver.Chrome('chromedriver', chrome_options=options)
+        self.driver = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
         if os.path.exists("cookies.pkl"):
             print("Loading cookies...")
             self.driver.get("https://pinterest.com")

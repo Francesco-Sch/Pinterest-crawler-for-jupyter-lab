@@ -32,12 +32,6 @@ if __name__ == "__main__":
     yaml_email = ""
     yaml_password = ""
     yaml_directory = ""
-    
-
-    # Check chromedriver exists
-    if not os.path.isfile(currentdir + "/chromedriver.exe"):
-        print("No chromedriver found! I'll download it automatically..")
-        chromedriver_download()
 
     # Check yaml exists
     if os.path.isfile(currentdir + "/config.yaml"):
