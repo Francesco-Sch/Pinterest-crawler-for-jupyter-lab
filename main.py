@@ -1,7 +1,6 @@
 from selenium import webdriver
 from pinterest import Pinterest
 from sys import exit
-from chromedriver import chromedriver_download
 from exceptions import *
 import json
 import yaml
