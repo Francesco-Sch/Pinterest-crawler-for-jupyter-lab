@@ -134,3 +134,4 @@ dmypy.json
 
 # Scraped data
 /dataset
+/output

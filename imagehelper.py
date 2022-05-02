@@ -10,6 +10,11 @@ def resize_image(src, file_path, scale_value):
     imgWidth = int(img.size[0])
     imgHeight = int(img.size[1])
 
+    # Convert image from RGBA to RGB
+    # Conversion is needed to safe images as jpg
+    if img.mode in ("RGBA", "P"): 
+        img = img.convert("RGB")
+
     if imgWidth < scale_value or imgHeight < scale_value:
         print('No down scaling neccesary')
         img.save(f'{file_path}', 'JPEG')
