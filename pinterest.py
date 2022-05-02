@@ -192,8 +192,9 @@ class Pinterest():
                 continue
             
             img = pin.find('img')
+            print(img)
 
-            if img.get("src") is not None:
+            if img is not None:
                 src = img.get("src")
                 
                 # Profile image, skip
