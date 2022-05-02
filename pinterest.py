@@ -77,7 +77,7 @@ class Pinterest():
     def dump(self):
         pickle.dump(self.driver.get_cookies(), open("cookies.pkl","wb"))
 
-    def crawl(self, dir):
+    def crawl(self, dir, scaling):
         timeout = 0
         height = self.driver.execute_script("return document.body.scrollHeight")
         while True:
@@ -87,7 +87,7 @@ class Pinterest():
 
             # If height changed
             if now_height != height:
-                self.download_image(dir)
+                self.download_image(scaling, dir)
                 break
             else:
                 timeout += 1
@@ -97,7 +97,7 @@ class Pinterest():
         sleep(2)
         return
     
-    def single_download(self, n=-1, url="https://pinterest.com/", dir="./download"):
+    def single_download(self, scaling, n=-1, url="https://pinterest.com/", dir="./download"):
         global loop
         fail_image = 0
         if n == -1:
@@ -115,7 +115,7 @@ class Pinterest():
         self.driver.implicitly_wait(3)
         for i in range(n):
             try:
-                self.crawl(dir)
+                self.crawl(dir, scaling)
             except EndPageException as e:
                 break
             download_pic_count = len(self.piclist)
@@ -125,7 +125,7 @@ class Pinterest():
         loop.close
         return fail_image
     
-    def batch_download(self, n=-1, url_list = [], dir_list = [], dir="./download"):
+    def batch_download(self, scaling, n=-1, url_list = [], dir_list = [], dir="./download"):
         global loop
         loop = asyncio.get_event_loop()
         url_count = len(url_list)
@@ -163,7 +163,7 @@ class Pinterest():
                 download_pic_count = len(self.piclist)
 
                 try:
-                    self.crawl(dir)
+                    self.crawl(dir, scaling)
                 except EndPageException as e:
                     del url_list[uindex]
                     del dir_list[uindex]
@@ -176,7 +176,7 @@ class Pinterest():
         return
 
 
-    def download_image(self, dir="./download"):
+    def download_image(self, scaling, dir="./download",):
         page_pic_list=[]
         req = self.driver.page_source
         soup = BeautifulSoup(req, 'html.parser')
@@ -194,7 +194,7 @@ class Pinterest():
                 self.piclist.append(src)
                 page_pic_list.append(src)
         
-        fail_image = sum(loop.run_until_complete(download_image_host(page_pic_list,dir)))
+        fail_image = sum(loop.run_until_complete(download_image_host(page_pic_list,dir,scaling)))
         return fail_image
 
     

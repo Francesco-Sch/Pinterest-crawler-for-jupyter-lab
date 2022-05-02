@@ -69,9 +69,9 @@ async def download_image(src, dir, i, scale_value):
     return failed
 
 
-async def download_image_host(plist, dir):
+async def download_image_host(plist, dir, scaling):
     fail_image = 0
-    fts = [asyncio.ensure_future(download_image(plist[i], dir, i, 1000)) for i in range(0, len(plist))]
+    fts = [asyncio.ensure_future(download_image(plist[i], dir, i, scaling)) for i in range(0, len(plist))]
     fail_image = await asyncio.gather(*fts)
     return fail_image
 
