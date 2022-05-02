@@ -90,5 +90,9 @@ You can select **any** pages what you want to scrape in Pinterest, not only main
 ### Does it can download video?
 No, you can only download jpg images from this tool. Video is not support for now.
 
+### What about advertisement?
+Advertisement is only skipped with 'English' or 'German' as the active language setting in Pinterest.  
+Create an issue, if you want me to add more languages.
+
 # Contribute
 If you find an issue or wants to contribute, please issue or pull request.
