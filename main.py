@@ -11,7 +11,7 @@ if __name__ == "__main__":
     currentdir = os.getcwd()
 
     # Using argparse
-    parser = argparse.ArgumentParser(description='An infinite pinterest crawler. Auther: mirusu400')
+    parser = argparse.ArgumentParser(description='An infinite pinterest crawler for Jupyter Lab. Author: Francesco Scheffczyk')
 
     parser.add_argument('-e', '--email', required=False, default="", help='Your Pinterest account email')
     parser.add_argument('-p', '--password', required=False, default="", help='Your Pinterest account password')
@@ -19,6 +19,7 @@ if __name__ == "__main__":
     parser.add_argument('-l', '--link', required=False, default="", help='Link of Pinterest which you want to scrape')
     parser.add_argument('-g', '--page', required=False, default="", help='Number of pages which you want to scrape')
     parser.add_argument('-b', '--batch', required=False, default=False, action="store_true", help='Enable batch mode (Please read README.md!!)')
+    parser.add_argument('-s', '--scaling', required=False, default="", help='Set the value for the longer side of the image')
     args = parser.parse_args()
 
     email = args.email
@@ -27,6 +28,7 @@ if __name__ == "__main__":
     link = args.link
     pages = args.page
     batch = args.batch
+    scaling = args.scaling
     
     yaml_email = ""
     yaml_password = ""
@@ -83,6 +85,13 @@ if __name__ == "__main__":
         pages = 999999
     else:
         pages = int(pages)
+    
+    if scaling == "":
+        scaling = input("Enter a value to which the longer side of the image should scale down (Blank if default value of 1000px): ")
+    if scaling == "" or int(scaling) == 0:
+        scaling = 1000
+    else:
+        scaling = int(scaling)
 
 
    
@@ -94,9 +103,9 @@ if __name__ == "__main__":
 
     if batch == False:
         print("Download Image")
-        p.single_download(pages, link, directory)
+        p.single_download(scaling, pages, link, directory,)
     
     else:
         print("Download Image in Batch mode...")
-        p.batch_download(pages, link_list, dir_list)
+        p.batch_download(scaling, pages, link_list, dir_list)
 

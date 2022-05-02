@@ -12,8 +12,8 @@ Based on the crawler from [mirusu400](https://github.com/mirusu400)
 # Installation
 1. Download requirements
 ```
-git clone https://github.com/mirusu400/Pinterest-infinite-crawler.git
-cd Pinterest-infinite-crawler
+git clone https://github.com/Francesco-Sch/Pinterest-crawler-for-jupyter-lab ./crawler
+cd crawler
 pip install -r requirements.txt
 ```
 
@@ -40,7 +40,7 @@ python main.py
 # Using argument
 You can also run crawler by passing argument, here are full document:
 ```
-usage: main.py [-h] [-e EMAIL] [-p PASSWORD] [-d DIRECTORY] [-l LINK] [-g PAGE]
+usage: main.py [-h] [-e EMAIL] [-p PASSWORD] [-d DIRECTORY] [-l LINK] [-g PAGE] [-s SCALING]
 
 optional arguments:
   -h, --help                            show this help message and exit
@@ -50,10 +50,11 @@ optional arguments:
   -l LINK, --link LINK                  Link of Pinterest which you want to scrape
   -g PAGE, --page PAGE                  Number of pages which you want to scrape
   -b BATCH, --batch BATCH               Enable batch mode (Please read README.md!!)
+  -s SCALING, --scaling SCALING         Pixel value to which the longer side of the image should be scaled down
 ```
 
 **Example:**
-> main.py -e mirusu400@naver.com -p [your_password] -d download_image -l https://pinterest.com/ -g 10
+> main.py -e [your_e-mail] -p [your_password] -d download_image -l https://pinterest.com/ -g 10 -s 1000
 
 # Batch mode
 You can download multiple Pinterest links in a one, using batch mode
