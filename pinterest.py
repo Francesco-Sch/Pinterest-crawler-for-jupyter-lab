@@ -192,7 +192,6 @@ class Pinterest():
                 continue
             
             img = pin.find('img')
-            print(img)
 
             if img is not None:
                 src = img.get("src")

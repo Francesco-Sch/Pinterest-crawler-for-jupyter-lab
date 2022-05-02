@@ -35,12 +35,12 @@ if __name__ == "__main__":
     yaml_directory = ""
 
     # Check yaml exists
-    if os.path.isfile(currentdir + "/config.yaml"):
-        with open("./config.yaml", "r") as f:
-            config = yaml.load(f)
-            yaml_email = config["email"]
-            yaml_password = config["password"]
-            yaml_directory = config["directory"]
+    # if os.path.isfile(currentdir + "/config.yaml"):
+    #     with open("./config.yaml", "r") as f:
+    #         config = yaml.load(f)
+    #         yaml_email = config["email"]
+    #         yaml_password = config["password"]
+    #         yaml_directory = config["directory"]
 
     if email == "":
         if yaml_email != "":
@@ -103,7 +103,7 @@ if __name__ == "__main__":
 
     if batch == False:
         print("Download Image")
-        p.single_download(scaling, pages, link, directory,)
+        p.single_download(scaling, pages, link, directory)
     
     else:
         print("Download Image in Batch mode...")
