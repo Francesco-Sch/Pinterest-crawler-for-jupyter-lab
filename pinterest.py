@@ -214,7 +214,7 @@ class Pinterest():
 
             print(img.get("src"))
 
-            if img.get("src") != None:
+            if img.get("src") is not None :
                 print(img.get("src"))
                 src = img.get("src")
                 
