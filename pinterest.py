@@ -180,23 +180,32 @@ class Pinterest():
         page_pic_list=[]
         req = self.driver.page_source
         soup = BeautifulSoup(req, 'html.parser')
-        pics = soup.find_all("img")
-        if pics is None:
-            return 0
-        for pic in pics:
-            src = pic.get("src")
-            
-            # Profile image, skip
-            if "75x75_RS" in src:
-                continue
+        pins = soup.find_all("div", attrs={"data-grid-item": "true"})
 
-            if src not in self.piclist:
-                self.piclist.append(src)
-                page_pic_list.append(src)
-        
+        if pins is None:
+            return 0
+        for pin in pins:
+
+            # Skip advertisement
+            if pin.find(string="Anzeige von") or pin.find(string="Promoted by"):
+                print('Skip advertisement')
+                continue
+            
+            img = pin.find('img')
+
+            if img.get("src") is not None:
+                src = img.get("src")
+                
+                # Profile image, skip
+                if "75x75_RS" in src:
+                    continue
+
+                if src not in self.piclist:
+                    self.piclist.append(src)
+                    page_pic_list.append(src)
+
         fail_image = sum(loop.run_until_complete(download_image_host(page_pic_list,dir,scaling)))
         return fail_image
-
-    
+  
     def getdriver(self):
         return self.driver
