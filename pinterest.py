@@ -87,6 +87,7 @@ class Pinterest():
 
             # If height changed
             if now_height != height:
+                sleep(10)
                 self.download_image(scaling, dir)
                 break
             else:
