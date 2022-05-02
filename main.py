@@ -11,7 +11,7 @@ if __name__ == "__main__":
     currentdir = os.getcwd()
 
     # Using argparse
-    parser = argparse.ArgumentParser(description='An infinite pinterest crawler. Auther: mirusu400')
+    parser = argparse.ArgumentParser(description='An infinite pinterest crawler for Jupyter Lab. Author: Francesco Scheffczyk')
 
     parser.add_argument('-e', '--email', required=False, default="", help='Your Pinterest account email')
     parser.add_argument('-p', '--password', required=False, default="", help='Your Pinterest account password')
