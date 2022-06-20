@@ -20,6 +20,7 @@ if __name__ == "__main__":
     parser.add_argument('-g', '--page', required=False, default="", help='Number of pages which you want to scrape')
     parser.add_argument('-b', '--batch', required=False, default=False, action="store_true", help='Enable batch mode (Please read README.md!!)')
     parser.add_argument('-s', '--scaling', required=False, default="", help='Set the value for the longer side of the image')
+    parser.add_argument('-a', '--amount', required=False, default="", help='Maximum amount of images you want to scrape')
     args = parser.parse_args()
 
     email = args.email
@@ -29,6 +30,7 @@ if __name__ == "__main__":
     pages = args.page
     batch = args.batch
     scaling = args.scaling
+    amount = args.amount
     
     yaml_email = ""
     yaml_password = ""
@@ -92,6 +94,13 @@ if __name__ == "__main__":
         scaling = 1000
     else:
         scaling = int(scaling)
+    
+    if amount == "":
+        amount = input("Enter an mount of images you want to scrape. (Blank if default value of 3000 images): ")
+    if amount == "" or int(amount) == 0:
+        amount = 3000
+    else:
+        amount = int(amount)
 
 
    
@@ -103,9 +112,9 @@ if __name__ == "__main__":
 
     if batch == False:
         print("Download Image")
-        p.single_download(scaling, pages, link, directory)
+        p.single_download(scaling, pages, link, directory, amount)
     
     else:
         print("Download Image in Batch mode...")
-        p.batch_download(scaling, pages, link_list, dir_list)
+        p.batch_download(scaling, pages, link_list, dir_list, amount)
 

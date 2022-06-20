@@ -1,3 +1,4 @@
+import sys
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
@@ -77,7 +78,7 @@ class Pinterest():
     def dump(self):
         pickle.dump(self.driver.get_cookies(), open("cookies.pkl","wb"))
 
-    def crawl(self, dir, scaling):
+    def crawl(self, dir, scaling, amount):
         timeout = 0
         height = self.driver.execute_script("return document.body.scrollHeight")
         while True:
@@ -88,7 +89,7 @@ class Pinterest():
             # If height changed
             if now_height != height:
                 sleep(10)
-                self.download_image(scaling, dir)
+                self.download_image(scaling, dir, amount)
                 break
             else:
                 timeout += 1
@@ -98,7 +99,7 @@ class Pinterest():
         sleep(2)
         return
     
-    def single_download(self, scaling, n=-1, url="https://pinterest.com/", dir="./download"):
+    def single_download(self, scaling, n=-1, url="https://pinterest.com/", dir="./download", amount=3000):
         global loop
         fail_image = 0
         if n == -1:
@@ -116,17 +117,24 @@ class Pinterest():
         self.driver.implicitly_wait(3)
         for i in range(n):
             try:
-                self.crawl(dir, scaling)
+                self.crawl(dir, scaling, amount)
             except EndPageException as e:
                 break
+
             download_pic_count = len(self.piclist)
             print(f"Scroll down {i} Page, downloaded {download_pic_count} images.")
+
+            # End process when maximum amount of images is reached
+            if download_pic_count >= amount:
+                print(f"{download_pic_count} images were scraped.")
+                sys.exit()
+
         download_pic_count = len(self.piclist)
         print(f"Totally downloaded {download_pic_count} images.")
         loop.close
         return fail_image
     
-    def batch_download(self, scaling, n=-1, url_list = [], dir_list = [], dir="./download"):
+    def batch_download(self, scaling, n=-1, url_list = [], dir_list = [], dir="./download", amount=3000):
         global loop
         loop = asyncio.get_event_loop()
         url_count = len(url_list)
@@ -174,10 +182,15 @@ class Pinterest():
 
                 print(f"Scroll down from {url_list[uindex]}, {i} Page, downloaded {download_pic_count} images.")
 
+                # End process when maximum amount of images is reached
+                if download_pic_count >= amount:
+                    print(f"{download_pic_count} images were scraped.")
+                    sys.exit()
+
         return
 
 
-    def download_image(self, scaling, dir="./download",):
+    def download_image(self, scaling, dir="./download", amount=3000):
         page_pic_list=[]
         req = self.driver.page_source
         soup = BeautifulSoup(req, 'html.parser')
@@ -204,7 +217,7 @@ class Pinterest():
                 if src not in self.piclist:
                     self.piclist.append(src)
                     page_pic_list.append(src)
-
+                
         fail_image = sum(loop.run_until_complete(download_image_host(page_pic_list,dir,scaling)))
         return fail_image
   

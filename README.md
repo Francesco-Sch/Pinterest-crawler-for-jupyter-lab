@@ -1,16 +1,20 @@
 # Pinterest crawler for jupyter notebooks
+
 Crawl images from pinterest from within a jupyter notebook in jupyter lab.
 
 Based on the crawler from [mirusu400](https://github.com/mirusu400)  
 [Original GitHub Repository](https://github.com/mirusu400/Pinterest-infinite-crawler/)
 
 # Requirements
-* Python 3.7+
-* Selenium, requests, beautifulsoup4, pyyaml
-* Chrome + Chromedriver
+
+- Python 3.7+
+- Selenium, requests, beautifulsoup4, pyyaml
+- Chrome + Chromedriver
 
 # Installation
+
 1. Download requirements
+
 ```
 git clone https://github.com/Francesco-Sch/Pinterest-crawler-for-jupyter-lab ./crawler
 cd crawler
@@ -26,6 +30,7 @@ And replace it the same directory with `main.py`.
 3. (Optional) Set `config.yaml`
 
 Copy `.config.yaml` to `config.yaml` and fill your Pinterest's email, password and directorys to save images
+
 ```
 email: [your email here]
 password: [your password here]
@@ -33,14 +38,17 @@ directory: ./download
 ```
 
 # Usage
+
 ```
 python main.py
 ```
 
 # Using argument
+
 You can also run crawler by passing argument, here are full document:
+
 ```
-usage: main.py [-h] [-e EMAIL] [-p PASSWORD] [-d DIRECTORY] [-l LINK] [-g PAGE] [-s SCALING]
+usage: main.py [-h] [-e EMAIL] [-p PASSWORD] [-d DIRECTORY] [-l LINK] [-g PAGE] [-s SCALING] [-a AMOUNT]
 
 optional arguments:
   -h, --help                            show this help message and exit
@@ -51,15 +59,19 @@ optional arguments:
   -g PAGE, --page PAGE                  Number of pages which you want to scrape
   -b BATCH, --batch BATCH               Enable batch mode (Please read README.md!!)
   -s SCALING, --scaling SCALING         Pixel value to which the longer side of the image should be scaled down
+  -s AMOUNT, --scaling AMOUNT           Maximum amount of images you want to scrape
 ```
 
 **Example:**
-> main.py -e [your_e-mail] -p [your_password] -d download_image -l https://pinterest.com/ -g 10 -s 1000
+
+> main.py -e [your_e-mail] -p [your_password] -d download_image -l https://pinterest.com/ -g 10 -s 1000 -a 3000
 
 # Batch mode
+
 You can download multiple Pinterest links in a one, using batch mode
 
 1. Copy and paste `.batch.json` to `batch.json` and modify json array files.
+
 ```
 [
     {
@@ -77,22 +89,28 @@ You can download multiple Pinterest links in a one, using batch mode
 ```
 
 2. Use Batch mode in command line
-> main.py -b
+   > main.py -b
 
 # Q & A
+
 ### What is `Link to scrape` mean?
+
 You can select **any** pages what you want to scrape in Pinterest, not only main page. Such as:
-* [Releative-pins of one pin](https://www.pinterest.co.kr/pin/643240759283703965/)
-* [Someone's board](https://www.pinterest.co.kr/eaobrienae/croquies/)
-* [A search result](https://www.pinterest.co.kr/search/pins/?q=Github)
-* Or anything!
+
+- [Releative-pins of one pin](https://www.pinterest.co.kr/pin/643240759283703965/)
+- [Someone's board](https://www.pinterest.co.kr/eaobrienae/croquies/)
+- [A search result](https://www.pinterest.co.kr/search/pins/?q=Github)
+- Or anything!
 
 ### Does it can download video?
+
 No, you can only download jpg images from this tool. Video is not support for now.
 
 ### What about advertisement?
+
 Advertisement is only skipped with 'English' or 'German' as the active language setting in Pinterest.  
 Create an issue, if you want me to add more languages.
 
 # Contribute
+
 If you find an issue or wants to contribute, please issue or pull request.
